@@ -3,8 +3,43 @@ document.querySelectorAll('.section-header').forEach(btn => {
   btn.addEventListener('click', () => {
     const expanded = btn.getAttribute('aria-expanded') === 'true';
     btn.setAttribute('aria-expanded', !expanded);
-    const links = btn.nextElementSibling;
-    links.classList.toggle('collapsed', expanded);
+    btn.nextElementSibling.classList.toggle('collapsed', expanded);
+  });
+});
+
+// ── Nostr Widget Toggle ──
+const nostrBtn = document.getElementById('nostrBtn');
+const nostrDrawer = document.getElementById('nostrDrawer');
+
+nostrBtn.addEventListener('click', () => {
+  const expanded = nostrBtn.getAttribute('aria-expanded') === 'true';
+  nostrBtn.setAttribute('aria-expanded', !expanded);
+  nostrDrawer.classList.toggle('open', !expanded);
+});
+
+// ── Copy Buttons ──
+const toast = document.getElementById('toast');
+
+function showToast(msg) {
+  toast.textContent = msg || 'Copied to clipboard';
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const target = document.getElementById(btn.dataset.target);
+    if (!target) return;
+    try {
+      await navigator.clipboard.writeText(target.textContent.trim());
+      btn.classList.add('copied');
+      btn.innerHTML = '<i class="fas fa-check"></i>';
+      showToast('Copied to clipboard');
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML = '<i class="fas fa-copy"></i>';
+      }, 2000);
+    } catch {}
   });
 });
 
@@ -20,7 +55,6 @@ backToTop.addEventListener('click', () => {
 
 // ── Share Button ──
 const shareBtn = document.getElementById('shareBtn');
-const toast = document.getElementById('toast');
 
 shareBtn.addEventListener('click', async () => {
   const url = window.location.href;
@@ -30,8 +64,7 @@ shareBtn.addEventListener('click', async () => {
     try { await navigator.share(data); } catch {}
   } else {
     await navigator.clipboard.writeText(url);
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
+    showToast('Link copied to clipboard');
   }
 });
 
@@ -48,15 +81,15 @@ function resize() {
 
 function createParticles() {
   particles = [];
-  const count = Math.floor((canvas.width * canvas.height) / 18000);
+  const count = Math.floor((canvas.width * canvas.height) / 20000);
   for (let i = 0; i < count; i++) {
     particles.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      r: Math.random() * 1.5 + 0.5,
-      dx: (Math.random() - 0.5) * 0.3,
-      dy: (Math.random() - 0.5) * 0.3,
-      opacity: Math.random() * 0.4 + 0.1
+      r: Math.random() * 1.2 + 0.4,
+      dx: (Math.random() - 0.5) * 0.25,
+      dy: (Math.random() - 0.5) * 0.25,
+      opacity: Math.random() * 0.3 + 0.05
     });
   }
 }
@@ -66,29 +99,27 @@ function drawParticles() {
   particles.forEach(p => {
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(26, 79, 208, ${p.opacity})`;
+    ctx.fillStyle = `rgba(43, 92, 214, ${p.opacity})`;
     ctx.fill();
 
     p.x += p.dx;
     p.y += p.dy;
-
     if (p.x < 0) p.x = canvas.width;
     if (p.x > canvas.width) p.x = 0;
     if (p.y < 0) p.y = canvas.height;
     if (p.y > canvas.height) p.y = 0;
   });
 
-  // Draw connections
   for (let i = 0; i < particles.length; i++) {
     for (let j = i + 1; j < particles.length; j++) {
       const dx = particles[i].x - particles[j].x;
       const dy = particles[i].y - particles[j].y;
       const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 120) {
+      if (dist < 110) {
         ctx.beginPath();
         ctx.moveTo(particles[i].x, particles[i].y);
         ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(26, 79, 208, ${0.06 * (1 - dist / 120)})`;
+        ctx.strokeStyle = `rgba(43, 92, 214, ${0.04 * (1 - dist / 110)})`;
         ctx.lineWidth = 0.5;
         ctx.stroke();
       }
@@ -98,7 +129,6 @@ function drawParticles() {
   animationId = requestAnimationFrame(drawParticles);
 }
 
-// Respect reduced motion
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 function initParticles() {
@@ -112,10 +142,6 @@ function initParticles() {
   drawParticles();
 }
 
-window.addEventListener('resize', () => {
-  resize();
-  createParticles();
-});
-
+window.addEventListener('resize', () => { resize(); createParticles(); });
 prefersReducedMotion.addEventListener('change', initParticles);
 initParticles();

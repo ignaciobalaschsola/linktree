@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://linktree.ignacio.balasch.es">
   <meta property="og:image" content="https://linktree.ignacio.balasch.es/favicons/favicon-512x512.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#e94560">
+  <meta name="theme-color" content="#002fa7">
 
   <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
@@ -34,7 +34,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Animated background particles -->
   <canvas id="particles"></canvas>
 
   <div class="container">
@@ -45,27 +44,16 @@
         <a href="tel:+34692200389" class="contact-link"><i class="fas fa-phone"></i> +34 692 200 389</a>
         <a href="mailto:ignacio@balasch.es" class="contact-link"><i class="fas fa-envelope"></i> ignacio@balasch.es</a>
       </div>
-
-      <!-- Social icons bar (premium feature) -->
-      <nav class="social-icons" aria-label="Social media quick links">
-        <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="https://nostr.com/" target="_blank" rel="noopener" aria-label="Nostr"><i class="fas fa-bolt"></i></a>
-      </nav>
-
-      <!-- Share button (premium feature) -->
       <button class="share-btn" id="shareBtn" aria-label="Share this page">
         <i class="fas fa-share-nodes"></i> Share
       </button>
     </header>
 
-    <!-- Priority / Highlighted link (premium feature) -->
-    <a href="#" class="priority-link" target="_blank" rel="noopener">
+    <!-- Pinned: Portfolio -->
+    <a href="https://portfolio.ignacio.balasch.es" class="priority-link" target="_blank" rel="noopener">
       <span class="priority-badge">📌 Pinned</span>
-      <i class="fas fa-file-pdf"></i>
-      <span>CV — Download my latest resume</span>
+      <i class="fas fa-briefcase"></i>
+      <span>Professional Portfolio</span>
       <i class="fas fa-arrow-right priority-arrow"></i>
     </a>
 
@@ -279,13 +267,46 @@
         <i class="fas fa-chevron-down section-chevron"></i>
       </button>
       <div class="links" id="decentral-links">
-        <a href="https://nostr.com/" class="link-btn" target="_blank" rel="noopener">
-          <i class="fas fa-bolt"></i>
-          <div class="link-content">
-            <span class="link-name">Nostr</span>
-            <span class="link-desc">Censorship-resistant social</span>
+        <!-- Nostr Widget -->
+        <div class="key-widget" id="nostrWidget">
+          <button class="link-btn widget-trigger" id="nostrBtn" aria-expanded="false">
+            <i class="fas fa-bolt"></i>
+            <div class="link-content">
+              <span class="link-name">Nostr</span>
+              <span class="link-desc">Tap to reveal public key</span>
+            </div>
+            <i class="fas fa-chevron-down widget-chevron"></i>
+          </button>
+          <div class="widget-drawer" id="nostrDrawer">
+            <div class="key-display">
+              <code id="nostrKey">npub1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code>
+              <button class="copy-btn" data-target="nostrKey" aria-label="Copy Nostr public key">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
           </div>
-        </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Web3 -->
+    <section class="link-section">
+      <button class="section-header" aria-expanded="true" aria-controls="web3-links">
+        <h2 class="section-title"><i class="fab fa-ethereum"></i> Web3</h2>
+        <i class="fas fa-chevron-down section-chevron"></i>
+      </button>
+      <div class="links" id="web3-links">
+        <!-- Crypto Wallet Widget (coming soon) -->
+        <div class="key-widget coming-soon">
+          <div class="link-btn widget-disabled">
+            <i class="fab fa-bitcoin"></i>
+            <div class="link-content">
+              <span class="link-name">Crypto Wallet</span>
+              <span class="link-desc">Coming soon</span>
+            </div>
+            <span class="soon-badge">Soon</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -306,22 +327,17 @@
       </div>
     </section>
 
-
-
     <footer>
       <p>&copy; 2026 Ignacio Balasch Solá</p>
     </footer>
   </div>
 
-  <!-- Back to top (premium feature) -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
   </button>
 
-  <!-- Toast notification for share -->
-  <div class="toast" id="toast">Link copied to clipboard</div>
+  <div class="toast" id="toast">Copied to clipboard</div>
 
   <script src="script.js"></script>
 </body>
 </html>
-""
