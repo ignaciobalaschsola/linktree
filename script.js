@@ -7,55 +7,52 @@ document.querySelectorAll('.section-header').forEach(btn => {
   });
 });
 
-// ── Key Widgets ──
-const widgetQRData = {
-  nostr: 'npub1a2b3c4d5e6f7g8h9i0jklmnopqrstuvwxyz1234567890abcdefghijk',
-  crypto: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh'
+// ── Modal System ──
+const modalData = {
+  phone: {
+    icon: 'fas fa-phone',
+    title: 'Phone',
+    key: '+34 692 200 389',
+    qr: null,
+    actions: [
+      { label: 'Call', icon: 'fas fa-phone', href: 'tel:+34692200389' }
+    ]
+  },
+  email: {
+    icon: 'fas fa-envelope',
+    title: 'Email',
+    key: 'ignacio@balasch.es',
+    qr: null,
+    actions: [
+      { label: 'Send Email', icon: 'fas fa-paper-plane', href: 'mailto:ignacio@balasch.es' }
+    ]
+  },
+  nostr: {
+    icon: 'fas fa-bolt',
+    title: 'Nostr Public Key',
+    key: 'npub1a2b3c4d5e6f7g8h9i0jklmnopqrstuvwxyz1234567890abcdefghijk',
+    qr: 'npub1a2b3c4d5e6f7g8h9i0jklmnopqrstuvwxyz1234567890abcdefghijk',
+    actions: []
+  },
+  crypto: {
+    icon: 'fab fa-bitcoin',
+    title: 'Crypto Wallet',
+    key: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
+    qr: 'bitcoin:bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
+    actions: []
+  }
 };
 
-const qrGenerated = {};
-
-function generateQR(containerId, data) {
-  if (qrGenerated[containerId]) return;
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  const qr = qrcode(0, 'M');
-  qr.addData(data);
-  qr.make();
-  const img = document.createElement('img');
-  img.src = qr.createDataURL(4, 0);
-  img.alt = 'QR Code';
-  container.appendChild(img);
-  qrGenerated[containerId] = true;
-}
-
-document.querySelectorAll('.widget-trigger').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    const widgetName = btn.dataset.widget;
-    const panel = document.getElementById(widgetName + '-panel');
-
-    // Close other open widgets
-    document.querySelectorAll('.widget-trigger[aria-expanded="true"]').forEach(other => {
-      if (other !== btn) {
-        other.setAttribute('aria-expanded', 'false');
-        const otherPanel = document.getElementById(other.dataset.widget + '-panel');
-        if (otherPanel) otherPanel.classList.remove('open');
-      }
-    });
-
-    btn.setAttribute('aria-expanded', !expanded);
-    panel.classList.toggle('open', !expanded);
-
-    // Generate QR only for nostr/crypto on first open
-    if (!expanded && widgetQRData[widgetName]) {
-      generateQR(widgetName + '-qr', widgetQRData[widgetName]);
-    }
-  });
-});
-
-// ── Copy Buttons ──
+const modal = document.getElementById('modal');
+const modalIcon = document.getElementById('modalIcon');
+const modalTitle = document.getElementById('modalTitle');
+const modalQr = document.getElementById('modalQr');
+const modalKey = document.getElementById('modalKey');
+const modalCopy = document.getElementById('modalCopy');
+const modalActions = document.getElementById('modalActions');
 const toast = document.getElementById('toast');
+
+let currentModalKey = '';
 
 function showToast(msg) {
   toast.textContent = msg || 'Copied to clipboard';
@@ -63,21 +60,76 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove('show'), 2200);
 }
 
-document.querySelectorAll('.copy-btn').forEach(btn => {
-  btn.addEventListener('click', async () => {
-    const target = document.getElementById(btn.dataset.target);
-    if (!target) return;
-    try {
-      await navigator.clipboard.writeText(target.textContent.trim());
-      btn.classList.add('copied');
-      btn.innerHTML = '<i class="fas fa-check"></i>';
-      showToast('Copied to clipboard');
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        btn.innerHTML = '<i class="fas fa-copy"></i>';
-      }, 2000);
-    } catch {}
+function openModal(name) {
+  const data = modalData[name];
+  if (!data) return;
+
+  modalIcon.innerHTML = `<i class="${data.icon}"></i>`;
+  modalTitle.textContent = data.title;
+  currentModalKey = data.key;
+  modalKey.textContent = data.key;
+
+  // QR
+  modalQr.innerHTML = '';
+  if (data.qr) {
+    const qr = qrcode(0, 'M');
+    qr.addData(data.qr);
+    qr.make();
+    const img = document.createElement('img');
+    img.src = qr.createDataURL(4, 0);
+    img.alt = 'QR Code';
+    modalQr.appendChild(img);
+  }
+
+  // Actions
+  modalActions.innerHTML = '';
+  data.actions.forEach(a => {
+    const link = document.createElement('a');
+    link.href = a.href;
+    link.className = 'modal-action-btn';
+    link.innerHTML = `<i class="${a.icon}"></i> ${a.label}`;
+    modalActions.appendChild(link);
   });
+
+  // Reset copy button
+  modalCopy.classList.remove('copied');
+  modalCopy.innerHTML = '<i class="fas fa-copy"></i>';
+
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeModal() {
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+// Triggers
+document.querySelectorAll('.modal-trigger').forEach(btn => {
+  btn.addEventListener('click', () => openModal(btn.dataset.modal));
+});
+
+// Close
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// Copy
+modalCopy.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(currentModalKey);
+    modalCopy.classList.add('copied');
+    modalCopy.innerHTML = '<i class="fas fa-check"></i>';
+    showToast('Copied to clipboard');
+    setTimeout(() => {
+      modalCopy.classList.remove('copied');
+      modalCopy.innerHTML = '<i class="fas fa-copy"></i>';
+    }, 2000);
+  } catch {}
 });
 
 // ── Back to Top ──

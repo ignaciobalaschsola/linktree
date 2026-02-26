@@ -242,10 +242,8 @@ body {
   text-overflow: ellipsis;
 }
 
-/* ── Key Widgets (Nostr / Crypto) ── */
-.key-widget { position: relative; }
-
-.widget-trigger {
+/* ── Modal Triggers ── */
+.modal-trigger {
   cursor: pointer;
   border: none;
   width: 100%;
@@ -253,76 +251,170 @@ body {
   text-align: left;
 }
 
-.widget-chevron {
-  margin-left: auto;
-  font-size: 0.6rem;
-  color: var(--text-secondary);
-  transition: transform var(--transition);
-  flex-shrink: 0;
-}
-
-.widget-trigger[aria-expanded="true"] .widget-chevron {
-  transform: rotate(180deg);
-}
-
-.widget-panel {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, padding 0.35s ease;
-  padding: 0 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.widget-panel.open {
-  max-height: 400px;
-  padding: 0.75rem 0 0.25rem;
-}
-
-.widget-qr {
-  background: #fff;
-  border-radius: 10px;
-  padding: 12px;
+/* ── Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 14, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 200;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  background: var(--bg-section);
+  border: 1px solid rgba(43, 92, 214, 0.2);
+  border-radius: 16px;
+  padding: 2rem 1.75rem;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modal-overlay.open .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+
+.modal-close:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-icon {
+  font-size: 2rem;
+  color: var(--klein-light);
+  margin-bottom: 0.75rem;
+}
+
+.modal-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.modal-qr {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.widget-qr canvas,
-.widget-qr img {
+.modal-qr:empty { display: none; }
+
+.modal-qr canvas,
+.modal-qr img {
   display: block;
-  width: 140px !important;
-  height: 140px !important;
+  width: 160px !important;
+  height: 160px !important;
   image-rendering: pixelated;
 }
 
-.key-display {
+.modal-key-row {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   background: rgba(0, 47, 167, 0.06);
   border: 1px solid rgba(43, 92, 214, 0.15);
   border-radius: 8px;
-  padding: 0.55rem 0.7rem;
-  width: 100%;
-  max-width: 360px;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 1rem;
 }
 
-.key-display code {
+.modal-key {
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: var(--silver);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   flex: 1;
   user-select: all;
-  line-height: 1.4;
+  text-align: left;
 }
 
+.modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.modal-actions:empty { display: none; }
+
+.modal-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  background: var(--klein);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+
+.modal-action-btn:hover {
+  background: var(--klein-light);
+}
+
+/* ── WIP Badge ── */
+.wip-badge {
+  display: inline-block;
+  font-size: 0.55rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  background: rgba(122, 132, 153, 0.15);
+  padding: 1px 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+/* ── Copy Button (in modal) ── */
 .copy-btn {
   background: rgba(43, 92, 214, 0.15);
   border: 1px solid rgba(43, 92, 214, 0.2);
@@ -348,43 +440,6 @@ body {
   background: #1a7a3a;
   border-color: #1a7a3a;
   color: #fff;
-}
-
-/* ── Action Button (call / email) ── */
-.action-btn {
-  background: rgba(43, 92, 214, 0.15);
-  border: 1px solid rgba(43, 92, 214, 0.2);
-  color: var(--klein-light);
-  width: 30px;
-  height: 30px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  flex-shrink: 0;
-  transition: all var(--transition);
-  text-decoration: none;
-}
-
-.action-btn:hover {
-  background: var(--klein);
-  color: #fff;
-}
-
-/* ── WIP Badge ── */
-.wip-badge {
-  display: inline-block;
-  font-size: 0.55rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-secondary);
-  background: rgba(122, 132, 153, 0.15);
-  padding: 1px 6px;
-  border-radius: 4px;
-  vertical-align: middle;
-  margin-left: 4px;
 }
 
 /* ── Back to Top ── */
