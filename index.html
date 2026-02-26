@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ignacio Balasch Solá — Links</title>
 
-  <!-- SEO & Open Graph -->
   <meta name="description" content="All links for Ignacio Balasch Solá — sports, professional, social, entertainment and more.">
   <meta property="og:title" content="Ignacio Balasch Solá — Links">
   <meta property="og:description" content="All links for Ignacio Balasch Solá — sports, professional, social, entertainment and more.">
@@ -15,7 +14,6 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#002fa7">
 
-  <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
@@ -26,7 +24,6 @@
   <link rel="icon" type="image/png" sizes="512x512" href="favicons/favicon-512x512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
 
-  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -40,22 +37,82 @@
     <header class="profile">
       <img src="profilepic.jpg" alt="Ignacio Balasch Solá" class="avatar">
       <h1>Ignacio Balasch Solá</h1>
-      <div class="contact-info">
-        <a href="tel:+34692200389" class="contact-link"><i class="fas fa-phone"></i> +34 692 200 389</a>
-        <a href="mailto:ignacio@balasch.es" class="contact-link"><i class="fas fa-envelope"></i> ignacio@balasch.es</a>
-      </div>
-      <button class="share-btn" id="shareBtn" aria-label="Share this page">
-        <i class="fas fa-share-nodes"></i> Share
-      </button>
     </header>
 
-    <!-- Pinned: Portfolio -->
-    <a href="https://portfolio.ignacio.balasch.es" class="priority-link" target="_blank" rel="noopener">
-      <span class="priority-badge">📌 Pinned</span>
-      <i class="fas fa-briefcase"></i>
-      <span>Professional Portfolio</span>
-      <i class="fas fa-arrow-right priority-arrow"></i>
-    </a>
+    <!-- Contact & Identity -->
+    <section class="link-section">
+      <button class="section-header" aria-expanded="true" aria-controls="contact-links">
+        <h2 class="section-title"><i class="fas fa-id-card"></i> Contact & Identity</h2>
+        <i class="fas fa-chevron-down section-chevron"></i>
+      </button>
+      <div class="links" id="contact-links">
+
+        <!-- Phone -->
+        <div class="key-widget">
+          <button class="link-btn widget-trigger" data-widget="phone" aria-expanded="false">
+            <i class="fas fa-phone"></i>
+            <div class="link-content"><span class="link-name">Phone</span><span class="link-desc">Tap to reveal</span></div>
+            <i class="fas fa-chevron-down widget-chevron"></i>
+          </button>
+          <div class="widget-panel" id="phone-panel">
+            <div class="key-display">
+              <code id="phone-key">+34 692 200 389</code>
+              <a href="tel:+34692200389" class="action-btn" aria-label="Call"><i class="fas fa-phone"></i></a>
+              <button class="copy-btn" data-target="phone-key" aria-label="Copy phone"><i class="fas fa-copy"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="key-widget">
+          <button class="link-btn widget-trigger" data-widget="email" aria-expanded="false">
+            <i class="fas fa-envelope"></i>
+            <div class="link-content"><span class="link-name">Email</span><span class="link-desc">Tap to reveal</span></div>
+            <i class="fas fa-chevron-down widget-chevron"></i>
+          </button>
+          <div class="widget-panel" id="email-panel">
+            <div class="key-display">
+              <code id="email-key">ignacio@balasch.es</code>
+              <a href="mailto:ignacio@balasch.es" class="action-btn" aria-label="Send email"><i class="fas fa-paper-plane"></i></a>
+              <button class="copy-btn" data-target="email-key" aria-label="Copy email"><i class="fas fa-copy"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nostr -->
+        <div class="key-widget">
+          <button class="link-btn widget-trigger" data-widget="nostr" aria-expanded="false">
+            <i class="fas fa-bolt"></i>
+            <div class="link-content"><span class="link-name">Nostr <span class="wip-badge">WIP</span></span><span class="link-desc">Tap to reveal public key</span></div>
+            <i class="fas fa-chevron-down widget-chevron"></i>
+          </button>
+          <div class="widget-panel" id="nostr-panel">
+            <div class="widget-qr" id="nostr-qr"></div>
+            <div class="key-display">
+              <code id="nostr-key">npub1a2b3c4d5e6f7g8h9i0jklmnopqrstuvwxyz1234567890abcdefghijk</code>
+              <button class="copy-btn" data-target="nostr-key" aria-label="Copy Nostr key"><i class="fas fa-copy"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Crypto Wallet -->
+        <div class="key-widget">
+          <button class="link-btn widget-trigger" data-widget="crypto" aria-expanded="false">
+            <i class="fab fa-bitcoin"></i>
+            <div class="link-content"><span class="link-name">Crypto Wallet <span class="wip-badge">WIP</span></span><span class="link-desc">Tap to reveal wallet address</span></div>
+            <i class="fas fa-chevron-down widget-chevron"></i>
+          </button>
+          <div class="widget-panel" id="crypto-panel">
+            <div class="widget-qr" id="crypto-qr"></div>
+            <div class="key-display">
+              <code id="crypto-key">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</code>
+              <button class="copy-btn" data-target="crypto-key" aria-label="Copy wallet address"><i class="fas fa-copy"></i></button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
 
     <!-- Sports -->
     <section class="link-section">
@@ -66,17 +123,11 @@
       <div class="links" id="sports-links">
         <a href="https://www.strava.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fab fa-strava"></i>
-          <div class="link-content">
-            <span class="link-name">Strava</span>
-            <span class="link-desc">Running & cycling activities</span>
-          </div>
+          <div class="link-content"><span class="link-name">Strava</span><span class="link-desc">Running & cycling activities</span></div>
         </a>
         <a href="https://www.playtomic.io/" class="link-btn" target="_blank" rel="noopener">
           <i class="fas fa-table-tennis-paddle-ball"></i>
-          <div class="link-content">
-            <span class="link-name">Playtomic</span>
-            <span class="link-desc">Padel bookings & stats</span>
-          </div>
+          <div class="link-content"><span class="link-name">Playtomic</span><span class="link-desc">Padel bookings & stats</span></div>
         </a>
       </div>
     </section>
@@ -88,40 +139,25 @@
         <i class="fas fa-chevron-down section-chevron"></i>
       </button>
       <div class="links" id="pro-links">
+        <a href="https://portfolio.ignacio.balasch.es" class="link-btn" target="_blank" rel="noopener">
+          <i class="fas fa-globe"></i>
+          <div class="link-content"><span class="link-name">Portfolio</span><span class="link-desc">Professional portfolio & projects</span></div>
+        </a>
         <a href="#" class="link-btn" target="_blank" rel="noopener">
           <i class="fas fa-file-alt"></i>
-          <div class="link-content">
-            <span class="link-name">Recommendation Letters</span>
-            <span class="link-desc">References from colleagues & managers</span>
-          </div>
+          <div class="link-content"><span class="link-name">Recommendation Letters</span><span class="link-desc">References from colleagues & managers</span></div>
         </a>
         <a href="https://www.linkedin.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fab fa-linkedin"></i>
-          <div class="link-content">
-            <span class="link-name">LinkedIn</span>
-            <span class="link-desc">Professional network & experience</span>
-          </div>
+          <div class="link-content"><span class="link-name">LinkedIn</span><span class="link-desc">Professional network & experience</span></div>
         </a>
         <a href="#" class="link-btn" target="_blank" rel="noopener">
           <i class="fas fa-flask"></i>
-          <div class="link-content">
-            <span class="link-name">Research Papers</span>
-            <span class="link-desc">Academic publications</span>
-          </div>
+          <div class="link-content"><span class="link-name">Research Papers</span><span class="link-desc">Academic publications</span></div>
         </a>
         <a href="https://github.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fab fa-github"></i>
-          <div class="link-content">
-            <span class="link-name">GitHub</span>
-            <span class="link-desc">Code repositories & projects</span>
-          </div>
-        </a>
-        <a href="#" class="link-btn" target="_blank" rel="noopener">
-          <i class="fas fa-building"></i>
-          <div class="link-content">
-            <span class="link-name">Culture Review</span>
-            <span class="link-desc">Workplace culture insights</span>
-          </div>
+          <div class="link-content"><span class="link-name">GitHub</span><span class="link-desc">Code repositories & projects</span></div>
         </a>
       </div>
     </section>
@@ -135,17 +171,11 @@
       <div class="links" id="ent-links">
         <a href="https://www.goodreads.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fab fa-goodreads"></i>
-          <div class="link-content">
-            <span class="link-name">Goodreads</span>
-            <span class="link-desc">Books I'm reading & recommending</span>
-          </div>
+          <div class="link-content"><span class="link-name">Goodreads</span><span class="link-desc">Books I'm reading & recommending</span></div>
         </a>
         <a href="https://www.imdb.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fab fa-imdb"></i>
-          <div class="link-content">
-            <span class="link-name">IMDb</span>
-            <span class="link-desc">Movie & TV ratings</span>
-          </div>
+          <div class="link-content"><span class="link-name">IMDb</span><span class="link-desc">Movie & TV ratings</span></div>
         </a>
       </div>
     </section>
@@ -159,24 +189,15 @@
       <div class="links" id="review-links">
         <a href="https://www.tripadvisor.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fas fa-plane"></i>
-          <div class="link-content">
-            <span class="link-name">Trip Advisor</span>
-            <span class="link-desc">Travel reviews & tips</span>
-          </div>
+          <div class="link-content"><span class="link-name">Trip Advisor</span><span class="link-desc">Travel reviews & tips</span></div>
         </a>
         <a href="https://www.yelp.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fab fa-yelp"></i>
-          <div class="link-content">
-            <span class="link-name">Yelp</span>
-            <span class="link-desc">Restaurant & service reviews</span>
-          </div>
+          <div class="link-content"><span class="link-name">Yelp</span><span class="link-desc">Restaurant & service reviews</span></div>
         </a>
         <a href="https://www.google.com/maps/" class="link-btn" target="_blank" rel="noopener">
           <i class="fab fa-google"></i>
-          <div class="link-content">
-            <span class="link-name">Google Reviews</span>
-            <span class="link-desc">Local business ratings</span>
-          </div>
+          <div class="link-content"><span class="link-name">Google Reviews</span><span class="link-desc">Local business ratings</span></div>
         </a>
       </div>
     </section>
@@ -190,17 +211,11 @@
       <div class="links" id="market-links">
         <a href="https://www.wallapop.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fas fa-shopping-bag"></i>
-          <div class="link-content">
-            <span class="link-name">Wallapop</span>
-            <span class="link-desc">Buy & sell locally</span>
-          </div>
+          <div class="link-content"><span class="link-name">Wallapop</span><span class="link-desc">Buy & sell locally</span></div>
         </a>
         <a href="https://www.vinted.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fas fa-tshirt"></i>
-          <div class="link-content">
-            <span class="link-name">Vinted</span>
-            <span class="link-desc">Second-hand fashion</span>
-          </div>
+          <div class="link-content"><span class="link-name">Vinted</span><span class="link-desc">Second-hand fashion</span></div>
         </a>
       </div>
     </section>
@@ -214,10 +229,7 @@
       <div class="links" id="gift-links">
         <a href="https://www.elfster.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fas fa-gift"></i>
-          <div class="link-content">
-            <span class="link-name">Elfster</span>
-            <span class="link-desc">My gift wishlist</span>
-          </div>
+          <div class="link-content"><span class="link-name">Elfster</span><span class="link-desc">My gift wishlist</span></div>
         </a>
       </div>
     </section>
@@ -231,82 +243,20 @@
       <div class="links" id="social-links">
         <a href="https://substack.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fas fa-newspaper"></i>
-          <div class="link-content">
-            <span class="link-name">Substack</span>
-            <span class="link-desc">Newsletter & long-form writing</span>
-          </div>
+          <div class="link-content"><span class="link-name">Substack</span><span class="link-desc">Newsletter & long-form writing</span></div>
         </a>
         <a href="https://www.youtube.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fab fa-youtube"></i>
-          <div class="link-content">
-            <span class="link-name">YouTube</span>
-            <span class="link-desc">Videos & content</span>
-          </div>
+          <div class="link-content"><span class="link-name">YouTube</span><span class="link-desc">Videos & content</span></div>
         </a>
         <a href="https://www.instagram.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fab fa-instagram"></i>
-          <div class="link-content">
-            <span class="link-name">Instagram</span>
-            <span class="link-desc">Photos & stories</span>
-          </div>
+          <div class="link-content"><span class="link-name">Instagram</span><span class="link-desc">Photos & stories</span></div>
         </a>
         <a href="https://www.instagram.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fas fa-dog"></i>
-          <div class="link-content">
-            <span class="link-name">My Dog's Instagram</span>
-            <span class="link-desc">The real star of the family 🐕</span>
-          </div>
+          <div class="link-content"><span class="link-name">My Dog's Instagram</span><span class="link-desc">The real star of the family 🐕</span></div>
         </a>
-      </div>
-    </section>
-
-    <!-- Decentralized Social Media -->
-    <section class="link-section">
-      <button class="section-header" aria-expanded="true" aria-controls="decentral-links">
-        <h2 class="section-title"><i class="fas fa-network-wired"></i> Decentralized Social Media</h2>
-        <i class="fas fa-chevron-down section-chevron"></i>
-      </button>
-      <div class="links" id="decentral-links">
-        <!-- Nostr Widget -->
-        <div class="key-widget" id="nostrWidget">
-          <button class="link-btn widget-trigger" id="nostrBtn" aria-expanded="false">
-            <i class="fas fa-bolt"></i>
-            <div class="link-content">
-              <span class="link-name">Nostr</span>
-              <span class="link-desc">Tap to reveal public key</span>
-            </div>
-            <i class="fas fa-chevron-down widget-chevron"></i>
-          </button>
-          <div class="widget-drawer" id="nostrDrawer">
-            <div class="key-display">
-              <code id="nostrKey">npub1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code>
-              <button class="copy-btn" data-target="nostrKey" aria-label="Copy Nostr public key">
-                <i class="fas fa-copy"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Web3 -->
-    <section class="link-section">
-      <button class="section-header" aria-expanded="true" aria-controls="web3-links">
-        <h2 class="section-title"><i class="fab fa-ethereum"></i> Web3</h2>
-        <i class="fas fa-chevron-down section-chevron"></i>
-      </button>
-      <div class="links" id="web3-links">
-        <!-- Crypto Wallet Widget (coming soon) -->
-        <div class="key-widget coming-soon">
-          <div class="link-btn widget-disabled">
-            <i class="fab fa-bitcoin"></i>
-            <div class="link-content">
-              <span class="link-name">Crypto Wallet</span>
-              <span class="link-desc">Coming soon</span>
-            </div>
-            <span class="soon-badge">Soon</span>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -319,10 +269,7 @@
       <div class="links" id="learn-links">
         <a href="https://www.duolingo.com/" class="link-btn" target="_blank" rel="noopener">
           <i class="fas fa-language"></i>
-          <div class="link-content">
-            <span class="link-name">Duolingo</span>
-            <span class="link-desc">Language learning streak 🔥</span>
-          </div>
+          <div class="link-content"><span class="link-name">Duolingo</span><span class="link-desc">Language learning streak 🔥</span></div>
         </a>
       </div>
     </section>
@@ -335,9 +282,9 @@
   <button class="back-to-top" id="backToTop" aria-label="Back to top">
     <i class="fas fa-arrow-up"></i>
   </button>
-
   <div class="toast" id="toast">Copied to clipboard</div>
 
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

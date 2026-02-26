@@ -7,14 +7,51 @@ document.querySelectorAll('.section-header').forEach(btn => {
   });
 });
 
-// ── Nostr Widget Toggle ──
-const nostrBtn = document.getElementById('nostrBtn');
-const nostrDrawer = document.getElementById('nostrDrawer');
+// ── Key Widgets ──
+const widgetQRData = {
+  nostr: 'npub1a2b3c4d5e6f7g8h9i0jklmnopqrstuvwxyz1234567890abcdefghijk',
+  crypto: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh'
+};
 
-nostrBtn.addEventListener('click', () => {
-  const expanded = nostrBtn.getAttribute('aria-expanded') === 'true';
-  nostrBtn.setAttribute('aria-expanded', !expanded);
-  nostrDrawer.classList.toggle('open', !expanded);
+const qrGenerated = {};
+
+function generateQR(containerId, data) {
+  if (qrGenerated[containerId]) return;
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const qr = qrcode(0, 'M');
+  qr.addData(data);
+  qr.make();
+  const img = document.createElement('img');
+  img.src = qr.createDataURL(4, 0);
+  img.alt = 'QR Code';
+  container.appendChild(img);
+  qrGenerated[containerId] = true;
+}
+
+document.querySelectorAll('.widget-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const widgetName = btn.dataset.widget;
+    const panel = document.getElementById(widgetName + '-panel');
+
+    // Close other open widgets
+    document.querySelectorAll('.widget-trigger[aria-expanded="true"]').forEach(other => {
+      if (other !== btn) {
+        other.setAttribute('aria-expanded', 'false');
+        const otherPanel = document.getElementById(other.dataset.widget + '-panel');
+        if (otherPanel) otherPanel.classList.remove('open');
+      }
+    });
+
+    btn.setAttribute('aria-expanded', !expanded);
+    panel.classList.toggle('open', !expanded);
+
+    // Generate QR only for nostr/crypto on first open
+    if (!expanded && widgetQRData[widgetName]) {
+      generateQR(widgetName + '-qr', widgetQRData[widgetName]);
+    }
+  });
 });
 
 // ── Copy Buttons ──
@@ -48,24 +85,8 @@ const backToTop = document.getElementById('backToTop');
 window.addEventListener('scroll', () => {
   backToTop.classList.toggle('visible', window.scrollY > 400);
 }, { passive: true });
-
 backToTop.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// ── Share Button ──
-const shareBtn = document.getElementById('shareBtn');
-
-shareBtn.addEventListener('click', async () => {
-  const url = window.location.href;
-  const data = { title: 'Ignacio Balasch Solá — Links', url };
-
-  if (navigator.share) {
-    try { await navigator.share(data); } catch {}
-  } else {
-    await navigator.clipboard.writeText(url);
-    showToast('Link copied to clipboard');
-  }
 });
 
 // ── Particle Background ──
@@ -101,7 +122,6 @@ function drawParticles() {
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fillStyle = `rgba(43, 92, 214, ${p.opacity})`;
     ctx.fill();
-
     p.x += p.dx;
     p.y += p.dy;
     if (p.x < 0) p.x = canvas.width;
@@ -109,7 +129,6 @@ function drawParticles() {
     if (p.y < 0) p.y = canvas.height;
     if (p.y > canvas.height) p.y = 0;
   });
-
   for (let i = 0; i < particles.length; i++) {
     for (let j = i + 1; j < particles.length; j++) {
       const dx = particles[i].x - particles[j].x;
@@ -125,12 +144,10 @@ function drawParticles() {
       }
     }
   }
-
   animationId = requestAnimationFrame(drawParticles);
 }
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
 function initParticles() {
   if (prefersReducedMotion.matches) {
     if (animationId) cancelAnimationFrame(animationId);
@@ -141,7 +158,6 @@ function initParticles() {
   createParticles();
   drawParticles();
 }
-
 window.addEventListener('resize', () => { resize(); createParticles(); });
 prefersReducedMotion.addEventListener('change', initParticles);
 initParticles();
