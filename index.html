@@ -35,14 +35,16 @@
 
   <div class="container">
     <header class="profile">
-      <img src="profilepic.jpg" alt="Ignacio Balasch Solá" class="avatar">
+      <button class="avatar-btn" id="avatarBtn" aria-label="View full photo">
+        <img src="profilepic.jpg" alt="Ignacio Balasch Solá" class="avatar">
+      </button>
       <h1>Ignacio Balasch Solá</h1>
     </header>
 
     <!-- Contact & Identity -->
     <section class="link-section">
       <button class="section-header" aria-expanded="true" aria-controls="contact-links">
-        <h2 class="section-title"><i class="fas fa-id-card"></i> Contact & Identity</h2>
+        <h2 class="section-title"><i class="fas fa-id-card"></i> Contact</h2>
         <i class="fas fa-chevron-down section-chevron"></i>
       </button>
       <div class="links" id="contact-links">
@@ -54,6 +56,16 @@
           <i class="fas fa-envelope"></i>
           <div class="link-content"><span class="link-name">Email</span><span class="link-desc">Tap to reveal</span></div>
         </button>
+      </div>
+    </section>
+
+    <!-- Keys & Wallets -->
+    <section class="link-section">
+      <button class="section-header" aria-expanded="true" aria-controls="keys-links">
+        <h2 class="section-title"><i class="fas fa-key"></i> Keys & Wallets</h2>
+        <i class="fas fa-chevron-down section-chevron"></i>
+      </button>
+      <div class="links" id="keys-links">
         <button class="link-btn modal-trigger" data-modal="nostr">
           <i class="fas fa-bolt"></i>
           <div class="link-content"><span class="link-name">Nostr <span class="wip-badge">WIP</span></span><span class="link-desc">Tap to reveal public key</span></div>
@@ -224,6 +236,12 @@
     <footer>
       <p>&copy; 2026 Ignacio Balasch Solá</p>
     </footer>
+  </div>
+
+  <!-- Avatar Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" aria-label="Close"><i class="fas fa-times"></i></button>
+    <img src="profilepic.jpg" alt="Ignacio Balasch Solá" class="lightbox-img">
   </div>
 
   <!-- Modal -->

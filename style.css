@@ -63,12 +63,80 @@ body {
   border-radius: 50%;
   object-fit: cover;
   object-position: center 25%;
-  margin: 0 auto 1rem;
   display: block;
   border: 2px solid rgba(43, 92, 214, 0.3);
   box-shadow: 0 0 40px var(--klein-glow);
   animation: pulse-glow 4s ease-in-out infinite;
 }
+
+.avatar-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.avatar-btn:hover { transform: scale(1.05); }
+.avatar-btn:focus-visible { outline: 2px solid var(--klein-light); outline-offset: 4px; }
+
+/* ── Lightbox ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 14, 0.92);
+  backdrop-filter: blur(12px);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.lightbox.open .lightbox-img {
+  transform: scale(1);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.lightbox-close:hover { background: rgba(255, 255, 255, 0.15); }
 
 @keyframes pulse-glow {
   0%, 100% { box-shadow: 0 0 30px var(--klein-glow); }

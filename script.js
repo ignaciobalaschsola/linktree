@@ -1,3 +1,14 @@
+// ── Avatar Lightbox ──
+const lightbox = document.getElementById('lightbox');
+document.getElementById('avatarBtn').addEventListener('click', () => {
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden', 'false');
+});
+lightbox.addEventListener('click', () => {
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+});
+
 // ── Collapsible Sections ──
 document.querySelectorAll('.section-header').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -115,7 +126,11 @@ modal.addEventListener('click', (e) => {
   if (e.target === modal) closeModal();
 });
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
+  if (e.key === 'Escape') {
+    closeModal();
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+  }
 });
 
 // Copy
