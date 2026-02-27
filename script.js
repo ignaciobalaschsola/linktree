@@ -156,6 +156,16 @@ backToTop.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+// ── Particle Colors ──
+let particleRGB = '43, 92, 214';
+let lineRGB = '43, 92, 214';
+
+function getParticleColors() {
+  const styles = getComputedStyle(document.documentElement);
+  particleRGB = styles.getPropertyValue('--particle-rgb').trim() || '43, 92, 214';
+  lineRGB = styles.getPropertyValue('--particle-line-rgb').trim() || '43, 92, 214';
+}
+
 // ── Particle Background ──
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
@@ -187,7 +197,7 @@ function drawParticles() {
   particles.forEach(p => {
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(43, 92, 214, ${p.opacity})`;
+    ctx.fillStyle = `rgba(${particleRGB}, ${p.opacity})`;
     ctx.fill();
     p.x += p.dx;
     p.y += p.dy;
@@ -205,7 +215,7 @@ function drawParticles() {
         ctx.beginPath();
         ctx.moveTo(particles[i].x, particles[i].y);
         ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(43, 92, 214, ${0.04 * (1 - dist / 110)})`;
+        ctx.strokeStyle = `rgba(${lineRGB}, ${0.04 * (1 - dist / 110)})`;
         ctx.lineWidth = 0.5;
         ctx.stroke();
       }
@@ -216,6 +226,7 @@ function drawParticles() {
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 function initParticles() {
+  getParticleColors();
   if (prefersReducedMotion.matches) {
     if (animationId) cancelAnimationFrame(animationId);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -228,3 +239,16 @@ function initParticles() {
 window.addEventListener('resize', () => { resize(); createParticles(); });
 prefersReducedMotion.addEventListener('change', initParticles);
 initParticles();
+
+function updateThemeColor() {
+  const color = getComputedStyle(document.documentElement).getPropertyValue('--theme-color').trim();
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', color);
+}
+
+const schemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+schemeQuery.addEventListener('change', () => {
+  getParticleColors();
+  updateThemeColor();
+});
+updateThemeColor();

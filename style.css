@@ -5,20 +5,82 @@
 }
 
 :root {
-  --bg-primary: #0b0e18;
-  --bg-section: #0f1322;
-  --bg-card: #141a2e;
-  --bg-hover: #182040;
-  --klein: #002fa7;
-  --klein-light: #2b5cd6;
-  --klein-glow: rgba(0, 47, 167, 0.2);
-  --silver: #c0c8d8;
-  --text-primary: #dce1eb;
-  --text-secondary: #7a8499;
-  --text-desc: #566078;
-  --border-subtle: rgba(43, 92, 214, 0.08);
   --border-radius: 12px;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0b0e18;
+    --bg-section: #0f1322;
+    --bg-card: #141a2e;
+    --bg-hover: #182040;
+    --klein: #002fa7;
+    --klein-light: #2b5cd6;
+    --klein-glow: rgba(0, 47, 167, 0.2);
+    --silver: #c0c8d8;
+    --text-primary: #dce1eb;
+    --text-secondary: #7a8499;
+    --text-desc: #8a92a4;
+    --border-subtle: rgba(43, 92, 214, 0.08);
+    --overlay-bg: rgba(5, 7, 14, 0.85);
+    --lightbox-bg: rgba(5, 7, 14, 0.92);
+    --modal-border: rgba(43, 92, 214, 0.2);
+    --modal-shadow: rgba(0, 0, 0, 0.5);
+    --lightbox-close-bg: rgba(255, 255, 255, 0.08);
+    --lightbox-close-hover: rgba(255, 255, 255, 0.15);
+    --lightbox-close-color: #fff;
+    --modal-close-hover-bg: rgba(255, 255, 255, 0.05);
+    --avatar-border: rgba(43, 92, 214, 0.3);
+    --hover-border: rgba(43, 92, 214, 0.15);
+    --section-hover-shadow: rgba(0, 0, 0, 0.25);
+    --copy-btn-bg: rgba(43, 92, 214, 0.15);
+    --copy-btn-border: rgba(43, 92, 214, 0.2);
+    --key-row-bg: rgba(0, 47, 167, 0.06);
+    --key-row-border: rgba(43, 92, 214, 0.15);
+    --toast-border: rgba(43, 92, 214, 0.3);
+    --wip-badge-bg: rgba(122, 132, 153, 0.15);
+    --particle-rgb: 43, 92, 214;
+    --particle-line-rgb: 43, 92, 214;
+    --theme-color: #002fa7;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-primary: #f5f7fa;
+    --bg-section: #ffffff;
+    --bg-card: #f0f2f5;
+    --bg-hover: #e8ebf0;
+    --klein: #002fa7;
+    --klein-light: #2b5cd6;
+    --klein-glow: rgba(0, 47, 167, 0.1);
+    --silver: #4a5568;
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-desc: #566a80;
+    --border-subtle: rgba(43, 92, 214, 0.1);
+    --overlay-bg: rgba(0, 0, 0, 0.5);
+    --lightbox-bg: rgba(0, 0, 0, 0.7);
+    --modal-border: rgba(43, 92, 214, 0.15);
+    --modal-shadow: rgba(0, 0, 0, 0.15);
+    --lightbox-close-bg: rgba(0, 0, 0, 0.08);
+    --lightbox-close-hover: rgba(0, 0, 0, 0.15);
+    --lightbox-close-color: #fff;
+    --modal-close-hover-bg: rgba(0, 0, 0, 0.05);
+    --avatar-border: rgba(43, 92, 214, 0.25);
+    --hover-border: rgba(43, 92, 214, 0.2);
+    --section-hover-shadow: rgba(0, 0, 0, 0.08);
+    --copy-btn-bg: rgba(43, 92, 214, 0.1);
+    --copy-btn-border: rgba(43, 92, 214, 0.15);
+    --key-row-bg: rgba(0, 47, 167, 0.04);
+    --key-row-border: rgba(43, 92, 214, 0.12);
+    --toast-border: rgba(43, 92, 214, 0.2);
+    --wip-badge-bg: rgba(74, 85, 104, 0.1);
+    --particle-rgb: 0, 47, 167;
+    --particle-line-rgb: 0, 47, 167;
+    --theme-color: #f5f7fa;
+  }
 }
 
 html { scroll-behavior: smooth; }
@@ -64,7 +126,7 @@ body {
   object-fit: cover;
   object-position: center 25%;
   display: block;
-  border: 2px solid rgba(43, 92, 214, 0.3);
+  border: 2px solid var(--avatar-border);
   box-shadow: 0 0 40px var(--klein-glow);
   animation: pulse-glow 4s ease-in-out infinite;
 }
@@ -87,7 +149,7 @@ body {
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(5, 7, 14, 0.92);
+  background: var(--lightbox-bg);
   backdrop-filter: blur(12px);
   z-index: 300;
   display: flex;
@@ -122,9 +184,9 @@ body {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--lightbox-close-bg);
   border: none;
-  color: #fff;
+  color: var(--lightbox-close-color);
   font-size: 1.2rem;
   width: 40px;
   height: 40px;
@@ -136,14 +198,15 @@ body {
   transition: background 0.2s;
 }
 
-.lightbox-close:hover { background: rgba(255, 255, 255, 0.15); }
+.lightbox-close:hover { background: var(--lightbox-close-hover); }
 
 @keyframes pulse-glow {
   0%, 100% { box-shadow: 0 0 30px var(--klein-glow); }
-  50% { box-shadow: 0 0 50px rgba(0, 47, 167, 0.35); }
+  50% { box-shadow: 0 0 50px var(--klein-glow); }
 }
 
 .profile h1 {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 0.6rem;
@@ -180,7 +243,7 @@ body {
 }
 
 .link-section:hover {
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 24px var(--section-hover-shadow);
 }
 
 .section-header {
@@ -274,7 +337,7 @@ body {
 .link-btn:hover {
   background: var(--bg-hover);
   transform: translateX(4px);
-  border-color: rgba(43, 92, 214, 0.15);
+  border-color: var(--hover-border);
   box-shadow: 0 2px 12px var(--klein-glow);
 }
 
@@ -323,7 +386,7 @@ body {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(5, 7, 14, 0.85);
+  background: var(--overlay-bg);
   backdrop-filter: blur(8px);
   z-index: 200;
   display: flex;
@@ -342,7 +405,7 @@ body {
 
 .modal-card {
   background: var(--bg-section);
-  border: 1px solid rgba(43, 92, 214, 0.2);
+  border: 1px solid var(--modal-border);
   border-radius: 16px;
   padding: 2rem 1.75rem;
   max-width: 380px;
@@ -351,7 +414,7 @@ body {
   position: relative;
   transform: translateY(20px) scale(0.95);
   transition: transform 0.3s ease;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 60px var(--modal-shadow);
 }
 
 .modal-overlay.open .modal-card {
@@ -378,7 +441,7 @@ body {
 
 .modal-close:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--modal-close-hover-bg);
 }
 
 .modal-icon {
@@ -419,8 +482,8 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(0, 47, 167, 0.06);
-  border: 1px solid rgba(43, 92, 214, 0.15);
+  background: var(--key-row-bg);
+  border: 1px solid var(--key-row-border);
   border-radius: 8px;
   padding: 0.6rem 0.75rem;
   margin-bottom: 1rem;
@@ -475,7 +538,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--text-secondary);
-  background: rgba(122, 132, 153, 0.15);
+  background: var(--wip-badge-bg);
   padding: 1px 6px;
   border-radius: 4px;
   vertical-align: middle;
@@ -484,8 +547,8 @@ body {
 
 /* ── Copy Button (in modal) ── */
 .copy-btn {
-  background: rgba(43, 92, 214, 0.15);
-  border: 1px solid rgba(43, 92, 214, 0.2);
+  background: var(--copy-btn-bg);
+  border: 1px solid var(--copy-btn-border);
   color: var(--klein-light);
   width: 30px;
   height: 30px;
@@ -549,7 +612,7 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(20px);
   background: var(--bg-card);
-  border: 1px solid rgba(43, 92, 214, 0.3);
+  border: 1px solid var(--toast-border);
   color: var(--text-primary);
   padding: 0.65rem 1.25rem;
   border-radius: 10px;
